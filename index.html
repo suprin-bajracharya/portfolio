@@ -1,0 +1,41 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;400;500;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Portfolio</title>
+</head>
+<body>
+<div id="loading">
+    loading ...
+</div>
+<div id="container" hidden>
+    <div id="image">
+        <img alt="bio-image" id="bio-image">
+    </div>
+    <div id="fullName"></div>
+    <div id="bio"></div>
+    <div id="followers"></div>
+</div>
+
+</body>
+<script>
+    fetch("https://api.github.com/users/suprin-bajracharya")
+    .then(response => response.json())
+    .then(function (data){
+        let followerCount = data.followers
+        let followerInfo = `Being followed by some awesome people. Check the count ${followerCount}`
+        document.getElementById('bio-image').src = data.avatar_url
+        document.getElementById('fullName').textContent = data.name
+        document.getElementById('bio').textContent = data.bio
+        document.getElementById('followers').textContent = followerInfo
+
+        document.getElementById('loading').hidden = true
+        document.getElementById('container').hidden = false
+    })
+</script>
+</html>
